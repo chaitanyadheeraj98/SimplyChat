@@ -38,19 +38,58 @@ export default function App() {
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`msg msg-${m.role}`}
             style={{
-              alignSelf: m.role === "user" ? "flex-end" : "flex-start",
-              background: m.role === "user" ? "#daf1ff" : "#f1f1f1",
-              padding: "8px 12px",
-              borderRadius: 8,
-              maxWidth: "75%",
+              display: "flex",
+              justifyContent: m.role === "user" ? "flex-end" : "flex-start",
+              width: "100%",
             }}
           >
-            <strong style={{ display: "block", marginBottom: 4 }}>
-              {m.role === "user" ? "You" : "AI"}
-            </strong>
-            <div>{m.content}</div>
+            {/* Assistant badge on the extreme left */}
+            {m.role === "assistant" && (
+              <div style={{ marginRight: 8, alignSelf: "flex-start" }}>
+                <div
+                  style={{
+                    background: "#f1f1f1",
+                    borderRadius: 12,
+                    padding: "6px 10px",
+                    fontWeight: "600",
+                    fontSize: 12,
+                  }}
+                >
+                  AI
+                </div>
+              </div>
+            )}
+
+            {/* Message bubble */}
+            <div
+              className={`msg msg-${m.role}`}
+              style={{
+                background: m.role === "user" ? "#daf1ff" : "#f1f1f1",
+                padding: "8px 12px",
+                borderRadius: 8,
+                maxWidth: "75%",
+              }}
+            >
+              <div>{m.content}</div>
+            </div>
+
+            {/* User badge on the extreme right */}
+            {m.role === "user" && (
+              <div style={{ marginLeft: 8, alignSelf: "flex-start" }}>
+                <div
+                  style={{
+                    background: "#daf1ff",
+                    borderRadius: 12,
+                    padding: "6px 10px",
+                    fontWeight: "600",
+                    fontSize: 12,
+                  }}
+                >
+                  You
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
